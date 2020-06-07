@@ -11,4 +11,6 @@ services:
         target: /app
     environment:
       - STATIC_ROOT=../static
+      - VIEW_ROOT=../views
+      - ENV=development
     command: ["go", "run", "."]
