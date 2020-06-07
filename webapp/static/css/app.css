@@ -1,0 +1,26 @@
+@import url("header.css");
+
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+	padding: 0;
+	font-family: "Source Sans Pro";
+}
+
+body {
+	font-size: 16px;
+}
+
+h1 {
+	font-size: 36px;
+}
+
+h2 {
+	font-size: 24px;
+}

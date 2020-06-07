@@ -1,0 +1,14 @@
+header {
+	padding: 12px;
+	background-color: #eee;
+}
+
+header h1 {
+	text-align: center;
+	width: 90%;
+	display: inline-block;
+}
+
+header .clock {
+	font-size: 20px;
+}

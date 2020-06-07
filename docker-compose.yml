@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  andon-webapp-in-go:
+    build: ./
+    ports:
+      - 3000:3000
+    volumes:
+      - type: bind
+        source: ./webapp
+        target: /app
+    environment:
+      - STATIC_ROOT=../static
+    command: ["go", "run", "."]

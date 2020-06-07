@@ -1,0 +1,66 @@
+@import url(/webapp/static/css/variables.css);
+
+.container {
+	display: flex;
+	justify-content: space-around;
+}
+
+.status-lights,
+.stats {
+	width: 40vw;
+	height: 85vh;
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column;
+	align-items: center;
+}
+
+.status-lights {
+	position: relative;
+}
+
+.status-light {
+	border-radius: 100%;
+	width: 25vh;
+	height: 25vh;
+	opacity: 0.3;
+	cursor: pointer;
+}
+
+.status-light.active {
+	opacity: 1;
+}
+
+.status-light.green {
+	background-color: var(--green);
+}
+
+.status-light.yellow {
+	background-color: var(--yellow);
+}
+
+.status-light.red {
+	background-color: var(--red);
+}
+
+.stats {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.stats span {
+	width: 85%;
+	display: inline-block;
+}
+
+.stats .label {
+	margin-top: 10px;
+	font-size: 24px;
+}
+.stats .value {
+	border: 1px solid #333;
+	padding: 8px;
+	font-size: 32px;
+	height: 40px;
+}

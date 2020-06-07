@@ -1,0 +1,75 @@
+.underlay {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	opacity: 0.5;
+	background-color: #333;
+}
+form {
+	position: absolute;
+	left: 30vw;
+	top: 30vh;
+	width: 30vw;
+	height: 30vh;
+	background: #fff;
+	display: flex;
+	flex-direction: column;
+	align-content: stretch;
+}
+
+form header,
+form .content,
+form footer {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+form header {
+	display: flex;
+	flex: 30px 0 0;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: calc(100% - 20px);
+}
+
+form header h1 {
+	text-align: left;
+}
+
+form header a {
+	font-size: 12px;
+	text-align: right;
+}
+
+form .content {
+	padding-top: 10px;
+	flex-basis: 100%;
+	display: flex;
+	flex-direction: column;
+	bottom: 0;
+	justify-content: center;
+	align-items: center;
+}
+
+form .content input {
+	height: 24px;
+	font-size: 20px;
+	width: 50%;
+	text-align: center;
+	margin: 8px;
+}
+
+form footer {
+	flex: 60px 0 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+form footer button {
+	font-size: 20px;
+}

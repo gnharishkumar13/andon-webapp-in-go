@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>
+		Assembly Line 1 - Andon Monitoring System
+	</title>
+	<link rel="stylesheet" href="/static/css/app.css" />
+
+	<link rel="stylesheet" href="/static/css/workcenter.css" >
+
+</head>
+
+<body>
+<header>
+	<h1>Andon Rapid Response System</h1>
+</header>
+
+
+<div class="container">
+	<div class="status-lights">
+		<div class="status-light green " data-level="0"></div>
+		<div class="status-light yellow active" data-level="1"></div>
+		<div class="status-light red " data-level="2"></div>
+	</div>
+	<div class="stats">
+		<span class="label">Workcenter</span>
+		<span class="value">Assembly Line 1</span>
+		<span class="label">Producing</span>
+		<span class="value">Widgets</span>
+		<span class="label">Status</span>
+		<span id="status" class="value">Yellow</span>
+		<span class="label">Escalation level</span>
+		<span id="escalation-level" class="value">Immediate Supervisors</span>
+		<span class="label">Time at this status</span>
+		<span id="time-at-status" class="value">00:00:00</span>
+		<span class="label">Time till next escalation</span>
+		<span id="time-till-escalation" class="value">00:00:00</span>
+	</div>
+</div>
+
+</body>
+
+</html>
