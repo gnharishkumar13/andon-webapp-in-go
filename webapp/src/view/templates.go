@@ -28,6 +28,7 @@ type PipelineBase struct {
 }
 
 func init() {
+	log.SetFlags(log.Ldate | log.Ltime | log.Llongfile)
 	setupViews()
 	if config.Get().Environment == config.Environment {
 		go watchForChanges()
