@@ -8,27 +8,16 @@ import (
 
 func main() {
 
-	childContent := `this is a child template`
-	parentContent := `
-	this is a parent template first line
-	{{ template "child_template" }}
-	this is a parent template second line
-	`
-	parent := template.New("parent_template")
-	child := parent.New("child_template") //Template composition
-
-	_, err := parent.Parse(parentContent)
-
+	//Pipelines
+	data := 42                            //Pipeline can be struct or function too
+	content := `this is a template {{.}}` //Actions{{}} and . means pipelines that have the entire data
+	t := template.New("")
+	_, err := t.Parse(content)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	_, err = child.Parse(childContent)
-
+	err = t.Execute(os.Stdout, data)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	err = parent.Execute(os.Stdout, nil)
-
 }
