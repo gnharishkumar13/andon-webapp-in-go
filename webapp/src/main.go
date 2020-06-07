@@ -1,12 +1,21 @@
 package main
 
 import (
-	"github.com/user/andon-webapp-in-go/src/view"
+	"html/template"
 	"log"
-	"net/http"
+	"os"
 )
 
 func main() {
-	view.RegisterStaticHandlers()
-	log.Fatal(http.ListenAndServe(":3000", nil))
+
+	content := `{{- /** This is a comment */ -}} this is a template`
+	t := template.New("my first template")
+	t, err := t.Parse(content)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = t.Execute(os.Stdout, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
