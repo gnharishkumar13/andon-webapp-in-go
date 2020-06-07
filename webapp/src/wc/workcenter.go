@@ -59,12 +59,27 @@ func (wc Workcenter) EscalationLevelDescription() string {
 
 //Get WorkCenter by ID
 func GetWorkCenter(id int) (Workcenter, error) {
-	return Workcenter{
-		ID:              id,
-		Name:            "Assemby Line 1",
+	if id > len(workCenters){
+		id = 1
+	}
+	return workCenters[id-1], nil
+}
+
+var workCenters = []Workcenter{
+	{
+		ID:              1,
+		Name:            "Assembly Line 1",
 		CurrentProduct:  "Widgets",
-		Status:          0,
+		Status:          2,
 		EscalationLevel: 0,
-		StatusSetAt:     time.Time{},
-	}, nil
+		StatusSetAt:     time.Now(),
+	},
+	{
+		ID:              2,
+		Name:            "Assembly Line 2",
+		CurrentProduct:  "Widgets",
+		Status:          2,
+		EscalationLevel: 0,
+		StatusSetAt:     time.Now(),
+	},
 }

@@ -8,5 +8,5 @@ import (
 //Register all handlers
 func Register(){
 	http.Handle("/", http.NotFoundHandler())
-	http.Handle("/wc", wc.NewViewHandler())
+	http.Handle("/wc/", wc.NewViewHandler())
 }
