@@ -1,6 +1,9 @@
 package wc
 
-import "time"
+import (
+	"context"
+	"time"
+)
 
 const (
 	timeToEscalate  = 10 * time.Minute
@@ -58,7 +61,7 @@ func (wc Workcenter) EscalationLevelDescription() string {
 }
 
 //Get WorkCenter by ID
-func GetWorkCenter(id int) (Workcenter, error) {
+func GetWorkCenter(ctx context.Context, id int) (Workcenter, error) {
 	if id > len(workCenters){
 		id = 1
 	}
