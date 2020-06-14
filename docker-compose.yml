@@ -14,3 +14,23 @@ services:
       - VIEW_ROOT=../views
       - ENV=development
     command: ["go", "run", "."]
+  db:
+    image: postgres:12.3-alpine
+    volumes: 
+      - db-data:/var/lib/postgresql/db-data
+      - type: bind
+        source: ./db/init #initial scripts to be run when volume is brought for first time
+        target: /docker-entrypoint-initdb.d 
+    ports: 
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres 
+      POSTGRES_DB: andon
+volumes: 
+    db-data:
+
+
+
+
+    

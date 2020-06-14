@@ -73,7 +73,7 @@ func (h *httpHandler) getView(ctx context.Context,
 		http.Error(w, "View template not found", http.StatusNotFound)
 		return
 	}
-	wc, err := GetWorkCenter(ctx, id)
+	wc, err := GetWorkcenter(ctx, id)
 	if err != nil {
 		log.Panicln(err)
 		http.NotFound(w, r)
