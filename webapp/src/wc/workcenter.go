@@ -64,3 +64,22 @@ func (wc Workcenter) EscalationLevelDescription() string {
 func GetWorkcenter(ctx context.Context, id int) (Workcenter, error) {
 	return findOne(ctx, id)
 }
+
+// GetAllWorkcenters retrieves all of the workcenters.
+func GetAllWorkcenters(ctx context.Context) ([]Workcenter, error) {
+	return findAll(ctx)
+}
+
+func escalate(ctx context.Context, id int) error {
+	wc, err := findOne(ctx, id)
+	if err != nil {
+		return err
+	}
+	if wc.EscalationLevel <= len(escalationLevels)-2 {
+		err = updateEscalationLevel(ctx, id, wc.EscalationLevel+1)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}

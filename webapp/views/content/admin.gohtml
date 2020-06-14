@@ -1,0 +1,61 @@
+{{ define "content"}}
+<div class="container">
+	<table>
+		<thead>
+			<tr>
+				<th class="cell cell-name">Workcenter</th>
+				<th class="cell cell-product">Producing</th>
+				<th class="cell cell-status">Status</th>
+				<th class="cell cell-time-at-status">Time at Status</th>
+				<th class="cell cell-escalation">Escalation Level</th>
+				<th class="cell cell-actions">&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody id="workcenters">
+			{{range .Workcenters}}
+				<tr>
+					<td class="cell cell-name">{{.Name}}</td>
+					<td class="cell cell-product">{{.CurrentProduct}}</td>
+					<td class="cell cell-status">
+						<div class="status-light" data-status="{{.Status}}"></div>
+					</td>
+					<td class="cell cell-time-at-status">{{.TimeAtStatus | durationToHHMMSS}}</td>
+					<td class="cell cell-escalation">{{.EscalationLevelDescription}}</td>
+					<td class="cell cell-actions">
+						<button data-workcenter-id="{{.ID}}">
+							Escalate
+						</button>
+					</td>
+				</tr>
+			{{else}}
+				No Workcenters found
+			{{end}}
+		</tbody>
+	</table>
+	</div>
+{{end}}
+
+{{define "styles"}}
+	<link rel="stylesheet" href="/static/css/admin.css">
+{{end}}
+
+{{define "scripts"}}
+	<script>
+		(function() {
+			document.getElementById('workcenters').addEventListener('click', function(e) {
+				const wcId = e.target.dataset['workcenterId'];
+				if (!wcId) {
+					return;
+				}
+
+				// Using fetch to demonstrate the concept, this would be more elegant with websockets
+				fetch(`/api/wc/${wcId}/escalate`, {
+					method: 'POST'
+				}).then(function() {
+					location.reload();
+				});
+
+			});
+		})();
+	</script>
+{{end}}
