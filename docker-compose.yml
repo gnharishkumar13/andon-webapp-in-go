@@ -13,6 +13,7 @@ services:
       - STATIC_ROOT=../static
       - VIEW_ROOT=../views
       - ENV=development
+      - salt=${salt}
     command: ["go", "run", "."]
   db:
     image: postgres:12.3-alpine
@@ -24,9 +25,9 @@ services:
     ports: 
       - 5432:5432
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres 
-      POSTGRES_DB: andon
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
 volumes: 
     db-data:
 

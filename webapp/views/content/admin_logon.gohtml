@@ -1,0 +1,25 @@
+{{ define "content"}}
+	<div class="underlay"></div>
+	<form method="post">
+		<header>
+			<h2>Administrator Logon</h1>
+		</header>
+		<div class="content">
+			<input id="username" 
+				   name="username" 
+				   placeholder="Username"
+				   value="{{.Username}}"/>
+			<input id="password" 
+				   name="password" 
+				   type="password"
+				   placeholder="Password"/>
+		</div>
+		<footer>
+			<button type="submit">Logon</button>
+		</footer>
+	</form>
+{{end}}
+
+{{define "styles"}}
+	<link rel="stylesheet" href="/static/css/logon.css">
+{{end}}
