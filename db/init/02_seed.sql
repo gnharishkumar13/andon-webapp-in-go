@@ -14,3 +14,7 @@ INSERT INTO public.workcenters ( wc_name, current_product, wc_status, escalation
 ('Progressive Press 2', 'Widgets', 0, 0, NOW()),
 ('Progressive Press 3', 'Widgets', 0, 0, NOW()),
 ('Progressive Press 4', 'Widgets', 0, 0, NOW());
+
+--- password: admin
+INSERT INTO public.users ( username, password )
+VALUES ('admin', 'S84yvdRCuzUlqG1SQWs3vHNaaSB5FbG8RXPAzMIti6VW+v4sGRYQzsVDyoOvkRQYbsGGxXQqkichoxZvXadoEA==');
