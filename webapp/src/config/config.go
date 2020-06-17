@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"os"
 )
 
@@ -28,7 +27,6 @@ func setupConfig() {
 	c.ViewRoot = os.Getenv("VIEW_ROOT")
 	c.Environment = os.Getenv("ENV")
 	c.Salt = os.Getenv("salt")
-	fmt.Println("salt", c.Salt)
 }
 
 //Get configs
