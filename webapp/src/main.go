@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/user/andon-webapp-in-go/src/admin"
@@ -8,8 +9,6 @@ import (
 	"github.com/user/andon-webapp-in-go/src/routes"
 	"github.com/user/andon-webapp-in-go/src/view"
 	"github.com/user/andon-webapp-in-go/src/wc"
-
-	"log"
 )
 
 func main() {
@@ -24,4 +23,5 @@ func main() {
 	routes.Register()
 
 	log.Fatal(http.ListenAndServe(":3000", nil))
+
 }
