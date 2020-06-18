@@ -83,3 +83,12 @@ func escalate(ctx context.Context, id int) error {
 	}
 	return nil
 }
+
+// SetWorkcenterStatus sets the workcenter with the provided ID's status.
+func SetWorkcenterStatus(ctx context.Context, id, status int) error {
+	escalationLevel := 0
+	if status != 0 {
+		escalationLevel = 1
+	}
+	return updateStatus(ctx, id, status, escalationLevel)
+}

@@ -4,14 +4,15 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"github.com/user/andon-webapp-in-go/src/db"
 	"log"
 	"time"
+
+	"github.com/user/andon-webapp-in-go/src/db"
 )
 
 var database *sql.DB
 
-func SetDB(db *sql.DB){
+func SetDB(db *sql.DB) {
 	database = db
 }
 
@@ -76,6 +77,20 @@ func updateEscalationLevel(ctx context.Context, id, escalationLevel int) error {
 		`, db.ToTimestamp(time.Now()), escalationLevel, id)
 	if err != nil {
 		return fmt.Errorf("failed to update escalation level of workcenter with id %q: %v", id, err)
+	}
+	return nil
+}
+
+func updateStatus(ctx context.Context, id int, status int, escalationLevel int) error {
+	_, err := database.ExecContext(ctx,
+		`UPDATE workcenters
+		SET wc_status=$1,
+			status_set_at=$2,
+			escalation_level=$3
+		WHERE id=$4
+		`, status, db.ToTimestamp(time.Now()), escalationLevel, id)
+	if err != nil {
+		return fmt.Errorf("failed to update status of workcenter with id %q: %v", id, err)
 	}
 	return nil
 }

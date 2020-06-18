@@ -1,33 +1,85 @@
 {{define "content"}}
-<div class="container">
-	<div class="status-lights">
-		<div class="status-light green {{if eq .Status 0}}active{{end}}" data-level="0"></div>
-		<div class="status-light yellow {{if eq .Status 1}}active{{end}}" data-level="1"></div>
-		<div class="status-light red {{if eq .Status 2}}active{{end}}" data-level="2"></div>
-	</div>
-	<div class="stats">
-		<span class="label">Workcenter</span>
-		<span class="value">{{.Name}}</span>
-		<span class="label">Producing</span>
-		<span class="value">{{.CurrentProduct}}</span>
-		<span class="label">Status</span>
-		<span id="status" class="value">{{.StatusDescription}}</span>
-		<span class="label">Escalation level</span>
-		<span id="escalation-level" class="value">{{.EscalationLevelDescription}}</span>
-		<span class="label">Time at this status</span>
-		<span id="time-at-status" class="value">{{.TimeAtStatus | durationToHHMMSS}}</span>
-		<span class="label">Time till next escalation</span>
-		<span id="time-till-escalation" class="value">
+	<div class="container">
+		<div class="status-lights">
+			<div class="status-light green {{if eq .Status 0}}active{{end}}" data-level="0"></div>
+			<div class="status-light yellow {{if eq .Status 1}}active{{end}}" data-level="1"></div>
+			<div class="status-light red {{if eq .Status 2}}active{{end}}" data-level="2"></div>
+		</div>
+		<div class="stats">
+			<span class="label">Workcenter</span>
+			<span class="value">{{.Name}}</span>
+			<span class="label">Producing</span>
+			<span class="value">{{.CurrentProduct}}</span>
+			<span class="label">Status</span>
+			<span id="status" class="value">{{.StatusDescription}}</span>
+			<span class="label">Escalation level</span>
+			<span id="escalation-level" class="value">{{.EscalationLevelDescription}}</span>
+			<span class="label">Time at this status</span>
+			<span id="time-at-status" class="value">{{.TimeAtStatus | durationToHHMMSS}}</span>
+			<span class="label">Time till next escalation</span>
+			<span id="time-till-escalation" class="value">
 			{{- if eq .Status 0 -}}
 				N/A
 			{{- else -}}
 				{{.TimeTillEscalation | durationToHHMMSS}}
 			{{- end -}}
 		</span>
+		</div>
 	</div>
-</div>
 {{end}}
 
 {{define "styles"}}
-<link rel="stylesheet" href="/static/css/workcenter.css" >
+	<link rel="stylesheet" href="/static/css/workcenter.css" >
+{{end}}
+
+{{define "scripts"}}
+	<script>
+		(function() {
+			const ws = new WebSocket('ws://' + location.host + '/ws/wc/{{.ID }}');
+			const statusElement = document.getElementById('status');
+			const esclationLevelElement = document.getElementById('escalation-level');
+			const timeAtStatusElement = document.getElementById('time-at-status');
+			const timeTillEscalationElement = document.getElementById('time-till-escalation');
+
+			ws.onopen = function () {
+				const lights = document.querySelectorAll('.status-light');
+
+				ws.onmessage = function(evt) {
+					const {status,
+						statusDescription,
+						escalationLevelDescription,
+						timeAtStatus,
+						timeTillEscalation} = JSON.parse(evt.data);
+
+					lights.forEach((light) => {
+						if (parseInt(light.dataset['level']) === status) {
+							light.classList.add('active');
+						} else {
+							light.classList.remove('active');
+						}
+					});
+
+					statusElement.textContent = statusDescription;
+					esclationLevelElement.textContent = escalationLevelDescription;
+					timeAtStatusElement.textContent = timeAtStatus;
+					timeTillEscalationElement.textContent = status === 0 ? 'N/A' : timeTillEscalation;
+				}
+
+				lights.forEach((light) => {
+					light.addEventListener('click', function(e) {
+						if (e.target.classList.contains('active') > 0) {
+							return;
+						}
+						ws.send(JSON.stringify({
+							type: 'statusChange',
+							payload: {
+								workcenter: {{.ID }},
+								status: parseInt(e.target.dataset['level'])
+							}
+						}));
+					})
+				})
+			}
+		})();
+	</script>
 {{end}}

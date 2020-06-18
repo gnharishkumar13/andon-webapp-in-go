@@ -2,4 +2,7 @@ module github.com/user/andon-webapp-in-go
 
 go 1.14
 
-require github.com/lib/pq v1.7.0
+require (
+	github.com/gorilla/websocket v1.4.2
+	github.com/lib/pq v1.7.0
+)

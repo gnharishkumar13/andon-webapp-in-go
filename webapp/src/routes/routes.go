@@ -14,4 +14,5 @@ func Register() {
 	http.Handle("/admin", admin.NewViewHandler())
 	http.Handle("/admin/logon", admin.NewLogonViewHandler())
 	http.Handle("/api/wc/", wc.NewAPIHandler())
+	http.Handle("/ws/wc/", wc.NewWebsocketHandler())
 }
