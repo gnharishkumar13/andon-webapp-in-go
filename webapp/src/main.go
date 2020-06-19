@@ -24,7 +24,9 @@ func main() {
 	view.RegisterStaticHandlers()
 	routes.Register()
 
+	//Middleware
 	gzipMiddleware := middleware.NewGzip([]string{"/ws"}, nil)
+
 	log.Fatal(http.ListenAndServe(":3000", gzipMiddleware))
 
 }
