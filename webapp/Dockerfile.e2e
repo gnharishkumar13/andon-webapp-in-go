@@ -1,0 +1,5 @@
+FROM golang:1.14
+
+RUN apt-get install gcc
+
+WORKDIR /app/src
