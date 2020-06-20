@@ -54,6 +54,12 @@ func (h viewHandler) getView(ctx context.Context, w http.ResponseWriter,
 		done <- struct{}{}
 	}()
 
+	if p, ok := w.(http.Pusher); ok {
+		p.Push("/static/css/variables.css", &http.PushOptions{})
+		p.Push("/static/css/app.css", &http.PushOptions{})
+		p.Push("/static/css/admin.css", &http.PushOptions{})
+	}
+
 	cookie, err := r.Cookie("token")
 	if err != nil {
 		log.Printf("unable to retrieve token: %v", err)
