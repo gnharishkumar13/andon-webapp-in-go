@@ -27,6 +27,7 @@ func main() {
 	//Middleware
 	gzipMiddleware := middleware.NewGzip([]string{"/ws"}, nil)
 
-	log.Fatal(http.ListenAndServe(":3000", gzipMiddleware))
+	//log.Fatal(http.ListenAndServe(":3000", gzipMiddleware))
+	log.Fatal(http.ListenAndServeTLS(":3000", "cert.pem", "key.pem", gzipMiddleware))
 
 }

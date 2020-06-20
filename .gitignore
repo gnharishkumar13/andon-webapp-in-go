@@ -1,5 +1,7 @@
 
 .env
+webapp/src/cert.pem
+webapp/src/key.pem
 
 # User-specific stuff
 .idea/
