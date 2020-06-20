@@ -1,4 +1,4 @@
-@import url(/webapp/static/css/variables.css);
+@import url(/static/css/variables.css);
 
 .container {
 	display: flex;

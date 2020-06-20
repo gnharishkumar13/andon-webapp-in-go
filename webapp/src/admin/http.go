@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/user/andon-webapp-in-go/src/middleware"
+
 	"github.com/user/andon-webapp-in-go/src/view"
 	"github.com/user/andon-webapp-in-go/src/wc"
 )
@@ -14,7 +16,10 @@ type viewHandler struct{}
 
 // NewViewHandler returns a handler that manages requests to the admin page.
 func NewViewHandler() http.Handler {
-	return &viewHandler{}
+
+	//Added the auth middleware for admin which should be accessible only for admins
+	roles := []string{"admin"}
+	return middleware.NewAuth(roles, nil, &viewHandler{})
 }
 
 func (h viewHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {

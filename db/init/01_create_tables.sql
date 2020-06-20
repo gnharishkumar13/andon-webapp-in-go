@@ -15,7 +15,6 @@ CREATE TABLE public.workcenters
 
 ALTER TABLE public.workcenters OWNER to postgres;
 
-
 --- users
 
 DROP TABLE IF EXISTS public.users;
@@ -57,5 +56,37 @@ CREATE INDEX token_idx_logon_tokens
 
 CREATE INDEX user_id_idx_logon_tokens
     ON public.logon_tokens USING btree
+    (user_id ASC NULLS LAST)
+    TABLESPACE pg_default;
+
+--- roles
+
+DROP TABLE IF EXISTS public.roles;
+
+CREATE TABLE public.roles
+(
+    id serial,
+    role text COLLATE pg_catalog."default",
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE public.roles OWNER to postgres;
+
+DROP TABLE IF EXISTS public.users_roles;
+
+CREATE TABLE public.users_roles
+(
+    id serial,
+    user_id int,
+    role_id int,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES public.users (id),
+    FOREIGN KEY (role_id) REFERENCES public.roles (id)
+);
+
+ALTER TABLE public.users_roles OWNER to postgres;
+
+CREATE INDEX user_id_idx_users_roles
+    ON public.users_roles USING btree
     (user_id ASC NULLS LAST)
     TABLESPACE pg_default;
