@@ -9,7 +9,6 @@ import (
 func TestHash(t *testing.T) {
 
 	//table-driven test
-
 	data := []struct {
 		have []string
 		want string
@@ -19,7 +18,7 @@ func TestHash(t *testing.T) {
 	}
 
 	for _, item := range data {
-		got := hash.Hash(item.have...)
+		got := hash.Hash(item.have...) //... varidiac functions
 		if got != item.want {
 			t.Errorf("Unexpected  result for %v. Got %q, wanted %q", item.have, got, item.want)
 		}
