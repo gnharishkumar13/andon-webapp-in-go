@@ -15,6 +15,20 @@ services:
       - ENV=development
       - salt=${salt}
     command: ["go", "run", "."]
+  e2e:
+    build:
+      context: ./webapp
+      dockerfile: Dockerfile.e2e
+    volumes:
+      - type: bind
+        source: ./webapp
+        target: /app
+    environment:
+      - ENV=test
+      - STATIC_ROOT=../../static
+      - VIEW_ROOT=../../views
+      - salt=${salt}
+    command: ["go", "test", "./e2e", "-test.v"]
   db:
     image: postgres:12.3-alpine
     volumes: 
